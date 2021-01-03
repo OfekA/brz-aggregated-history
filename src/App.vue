@@ -46,24 +46,26 @@ const timeframes = [
   },
 ];
 
-const monthList = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-const weekList = Array.from(new Array(56).keys()).map(
-  (weekNum) => `Week ${weekNum + 1}`
-);
+const timeframeValues = {
+  yearly: ["2020"],
+  monthly: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+  weekly: Array.from(new Array(56).keys()).map(
+    (weekNum) => `Week ${weekNum + 1}`
+  ),
+};
 
 const breezometerTilesID = "breezometer-tiles";
 
@@ -94,25 +96,20 @@ export default {
     this.mapboxmap = new mapboxgl.Map(mapOptions);
 
     this.mapboxmap.on("load", () => {
-      this.onTimeframeTypeChange();
-      this.selectedTimeframeValue = "Jan";
+      this.updateBRZLayers();
     });
   },
 
   computed: {
     timeframeValues() {
-      if (this.selectedTimeframeType === "monthly") {
-        return monthList;
-      } else if (this.selectedTimeframeType === "weekly") {
-        return weekList;
-      }
-
-      return [];
+      return timeframeValues[this.selectedTimeframeType];
     },
   },
 
   watch: {
-    selectedTimeframeType: "onTimeframeTypeChange",
+    selectedTimeframeType(timeframeType) {
+      this.updateBRZLayers();
+    },
 
     selectedTimeframeValue(timeframeValue) {
       this.toggleBRZLayer(timeframeValue);
@@ -120,7 +117,9 @@ export default {
   },
 
   methods: {
-    onTimeframeTypeChange() {
+    updateBRZLayers() {
+      this.selectedTimeframeValue =
+        timeframeValues[this.selectedTimeframeType][0];
       this.cleanBRZLayers();
       this.addBRZLayers();
     },
@@ -186,7 +185,7 @@ function yearlyTileURLBuilder() {
 }
 
 function monthlyTileURLBuilder(month = "Jan") {
-  let day = `${monthList.indexOf(month) + 10}`;
+  let day = `${timeframeValues.monthly.indexOf(month) + 10}`;
   if (day < 10) day = `0${day}`;
   return `https://tiles.breezometer.com/v1/air-quality/breezometer-aqi/historical/hourly/{z}/{x}/{y}.png?key=${variation.breezoMeterApiKey}&breezometer_aqi_color=indiper&datetime=2020-12-${day}T11:00:00`;
 }
