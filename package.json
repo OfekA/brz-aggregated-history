@@ -11,6 +11,7 @@
     "@vue/cli-plugin-babel": "4.1.1",
     "mapbox-gl": "~1.11.1",
     "vue": "^2.6.11",
+    "vue-router": "3.4.9",
     "vue-slider-component": "3.2.11",
     "vuesax": "4.0.1-alpha.25"
   },
