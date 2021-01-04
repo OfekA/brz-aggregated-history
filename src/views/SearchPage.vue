@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div></div>
-    <div class="p-4 md:p-16 flex justify-center">
+    <div class="p-3">
+      <router-link to="/"><i class="bx bx-x text-3xl"></i></router-link>
+    </div>
+    <div class="p-4 md:p-4 flex justify-center">
       <div>
-        <div class="title flex items-center mt-1 md:mt-32">
+        <div
+          class="title flex items-center mt-1 md:mt-1"
+          :class="{ 'opacity-0': chosenCity }"
+        >
           <i class="bx bx-map text-2xl md:text-3xl"></i>
           <h1 class="text-2xl font-medium ml-2">Search for a City</h1>
         </div>
@@ -16,7 +21,7 @@
             name="city-name"
             placeholder="Search for a city"
             v-model="cityName"
-            :disabled="cityName"
+            :disabled="chosenCity"
           />
           <div class="h-1 bg-gray-200"></div>
         </div>
@@ -42,9 +47,11 @@
             class="card shadow p-4 rounded-lg cursor-pointer hover:shadow-lg transition-all"
           >
             <i class="bx bx-map-alt text-2xl md:text-3xl ml-1"></i>
-            <h2 class="text-xl font-medium ml-2">Area Risk Score</h2>
+            <h2 class="text-xl font-medium ml-2">
+              Check your Area Risk Index Score
+            </h2>
             <h3 class="text-md ml-2 mt-1 text-gray-500">
-              See how air pollution affects your area over a whole year
+              See how air pollution affected your area last year
             </h3>
           </div>
 
@@ -53,10 +60,10 @@
           >
             <i class="bx bx-movie-play text-2xl md:text-3xl ml-1"></i>
             <h2 class="text-xl font-medium ml-2">
-              See how air pollution changes over time
+              Spot historical changes in air-quality
             </h2>
             <h3 class="text-md ml-2 mt-1 text-gray-500">
-              See how air pollution affects your area over a whole year
+              Move between time-periods and play-back time
             </h3>
           </div>
         </div>
