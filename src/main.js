@@ -20,7 +20,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: "/", component: IndexPage },
   { path: "/search", component: SearchPage },
-  { path: "/map", component: MapPage }
+  { path: "/map/:type", component: MapPage, props: true }
 ];
 
 // 3. Create the router instance and pass the `routes` option

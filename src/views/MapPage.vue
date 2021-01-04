@@ -1,10 +1,10 @@
 <template>
   <div class="p-2 h-screen">
-    <Header />
-
+    <Header class="mb-5" />
     <div class="timeframes">
-      <label style="margin-right: 10px; font-weight: 700">Timeframe: </label>
+      <label style="margin-right: 10px; font-weight: 700">Time-frame</label>
       <vs-radio
+        class="mr-2"
         v-for="timeframe in timeframes"
         :key="timeframe.id"
         v-model="selectedTimeframeType"
@@ -12,6 +12,14 @@
       >
         {{ timeframe.text }}
       </vs-radio>
+    </div>
+
+    <div class="mb-2 flex">
+      <label style="margin-right: 10px; font-weight: 700">Time-period</label>
+      <p v-if="selectedTimeframeType !== 'yearly'">
+        2020, {{ currentTimePeriod }}
+      </p>
+      <p v-else>{{ currentTimePeriod }}</p>
     </div>
 
     <div
@@ -43,6 +51,7 @@
 </template>
 
 <script>
+import mapboxgl from "mapbox-gl";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -96,6 +105,12 @@ export default {
     Header,
   },
   name: "App",
+  props: {
+    type: {
+      type: String,
+      default: "monthly",
+    },
+  },
   data() {
     return {
       mapboxmap: null,
@@ -106,9 +121,7 @@ export default {
       timeframeValuesIndex: 0,
     };
   },
-  async mounted() {
-    const mapboxgl = await import(/* webpackChunkName: "map" */ "mapbox-gl");
-
+  mounted() {
     const mapOptions = {
       container: this.$refs.map,
       accessToken: variation.accessToken,
@@ -120,6 +133,7 @@ export default {
     this.mapboxmap = new mapboxgl.Map(mapOptions);
 
     this.mapboxmap.on("load", () => {
+      this.selectedTimeframeType = this.type;
       this.updateBRZLayers();
     });
   },
@@ -127,6 +141,10 @@ export default {
   computed: {
     timeframeValues() {
       return timeframeValues[this.selectedTimeframeType];
+    },
+
+    currentTimePeriod() {
+      return this.timeframeValues[this.timeframeValuesIndex];
     },
   },
 
@@ -253,6 +271,8 @@ function weeklyTileURLBuilder(week = "1") {
 }
 
 function removeMapboxLayer(mapboxmap, id) {
+  // if (!mapboxmap) return;
+
   if (mapboxmap.getSource(id)) {
     mapboxmap.removeLayer(id);
     mapboxmap.removeSource(id);
@@ -260,6 +280,8 @@ function removeMapboxLayer(mapboxmap, id) {
 }
 
 function addBRZLayer({ mapboxmap, tilesUrl, layerID }) {
+  // if (!mapboxmap) return;
+
   removeMapboxLayer(mapboxmap, layerID);
 
   mapboxmap.addSource(layerID, {

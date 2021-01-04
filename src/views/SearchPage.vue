@@ -43,29 +43,33 @@
         </div>
 
         <div class="timeframe-select flex mt-10 gap-4" v-if="chosenCity">
-          <div
-            class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
-          >
-            <i class="bx bx-map-alt text-2xl md:text-3xl ml-2"></i>
-            <h2 class="text-xl font-medium ml-2">
-              Check your Area Risk Index Score
-            </h2>
-            <h3 class="text-md ml-2 mt-1 text-gray-500">
-              See how air pollution affected your area last year
-            </h3>
-          </div>
+          <router-link to="/map/yearly">
+            <div
+              class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
+            >
+              <i class="bx bx-map-alt text-2xl md:text-3xl ml-2"></i>
+              <h2 class="text-xl font-medium ml-2">
+                Check your Area Risk Index Score
+              </h2>
+              <h3 class="text-md ml-2 mt-1 text-gray-500">
+                See how air pollution affected your area last year
+              </h3>
+            </div>
+          </router-link>
 
-          <div
-            class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
-          >
-            <i class="bx bx-movie-play text-2xl md:text-3xl ml-2"></i>
-            <h2 class="text-xl font-medium ml-2">
-              Spot historical changes in air-quality
-            </h2>
-            <h3 class="text-md ml-2 mt-1 text-gray-500">
-              Move between time-periods and play-back time
-            </h3>
-          </div>
+          <router-link to="/map/monthly">
+            <div
+              class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
+            >
+              <i class="bx bx-movie-play text-2xl md:text-3xl ml-2"></i>
+              <h2 class="text-xl font-medium ml-2">
+                Spot historical changes in air-quality
+              </h2>
+              <h3 class="text-md ml-2 mt-1 text-gray-500">
+                Move between time-periods and play-back time
+              </h3>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
