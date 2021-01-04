@@ -3,8 +3,9 @@ import VueRouter from "vue-router";
 import Vuesax from "vuesax";
 
 import App from "./App.vue";
-import IndexPage from "./IndexPage.vue";
-import MapPage from "./MapPage.vue";
+import IndexPage from "./views/IndexPage.vue";
+import SearchPage from "./views/SearchPage.vue";
+import MapPage from "./views/MapPage.vue";
 
 import "vuesax/dist/vuesax.css"; //Vuesax styles
 
@@ -18,6 +19,7 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/", component: IndexPage },
+  { path: "/search", component: SearchPage },
   { path: "/map", component: MapPage }
 ];
 

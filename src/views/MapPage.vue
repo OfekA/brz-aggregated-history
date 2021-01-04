@@ -47,10 +47,10 @@ import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import Header from "./Header.vue";
+import Header from "../Header.vue";
 
-import variation from "./share/mapbox-variation.js";
-import sleep from "./share/sleep.js";
+import variation from "../share/mapbox-variation.js";
+import sleep from "../share/sleep.js";
 
 const timeframes = [
   {
@@ -283,22 +283,9 @@ function addBRZLayer({ mapboxmap, tilesUrl, layerID }) {
 </script>
 
 <style>
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-family: "Inter", sans-serif;
-}
-
-input[type="submit"],
-input[type="search"],
-input[type="button"],
-button {
-  outline: none !important;
-}
-
 .map {
   overflow: hidden;
-  height: 100%;
-  min-height: 500px;
+  height: 500px;
   width: 100%;
 }
 

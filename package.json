@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "4.1.1",
+    "fuzzy-search": "3.2.1",
     "mapbox-gl": "~1.11.1",
     "vue": "^2.6.11",
     "vue-router": "3.4.9",
