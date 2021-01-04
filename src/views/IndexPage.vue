@@ -1,17 +1,29 @@
 <template>
-  <div class="bg h-screen w-full px-4">
-    <div class="w-60 pt-4 bg-gray-400 bg-opacity-10">
+  <div class="bg h-screen w-full px-4 relative">
+    <div class="w-60 pl-8 pt-8 absolute">
       <img src="../assets/images/brz-logo-black.png" />
     </div>
-    <div class="flex justify-center items-center flex-col h-full w-full">
-      <div class="text-4xl w-3/6 text-white bg-gray-400 bg-opacity-10">
-        Breezometer we will decide what to write
+    <div
+      class="flex justify-center items-start flex-col w-full h-full px-8"
+      style="max-width: 900px"
+    >
+      <div
+        class="text-5xl md:text-6xl font-medium text-white tracking-tight leading-tight mb-5"
+        style="
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+          font-family: 'Palanquin', sans-serif;
+        "
+      >
+        Understand air pollution behevaior.
       </div>
-      <div class="w-3/6 pt-6">
+
+      <div class="mt-5 w-full">
         <router-link to="/search">
-          <div class="items-left text-gray-400 bg-white shadow-lg pl-4 py-4">
-            <i class="bx bx bx-search text-xl"></i>
-            <span class="ml-1 text-xl">Search for a City</span>
+          <div
+            class="flex items-left items-center bg-white shadow-lg pl-4 py-5"
+          >
+            <i class="bx bx bx-search text-2xl text-gray-300"></i>
+            <span class="ml-2 text-2xl text-gray-300">Search for a City</span>
           </div>
         </router-link>
       </div>

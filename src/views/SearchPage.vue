@@ -44,9 +44,9 @@
 
         <div class="timeframe-select flex mt-10 gap-4" v-if="chosenCity">
           <div
-            class="card shadow p-4 rounded-lg cursor-pointer hover:shadow-lg transition-all"
+            class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
           >
-            <i class="bx bx-map-alt text-2xl md:text-3xl ml-1"></i>
+            <i class="bx bx-map-alt text-2xl md:text-3xl ml-2"></i>
             <h2 class="text-xl font-medium ml-2">
               Check your Area Risk Index Score
             </h2>
@@ -56,9 +56,9 @@
           </div>
 
           <div
-            class="card shadow p-4 rounded-lg cursor-pointer hover:shadow-lg transition-all"
+            class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
           >
-            <i class="bx bx-movie-play text-2xl md:text-3xl ml-1"></i>
+            <i class="bx bx-movie-play text-2xl md:text-3xl ml-2"></i>
             <h2 class="text-xl font-medium ml-2">
               Spot historical changes in air-quality
             </h2>
