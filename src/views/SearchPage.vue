@@ -63,7 +63,7 @@
           </router-link>
           <router-link
             :to="{
-              path: '/map/monthly',
+              path: '/map/monthly-real',
               query: { lat: chosenCity.latitude, lon: chosenCity.longitude },
             }"
           >

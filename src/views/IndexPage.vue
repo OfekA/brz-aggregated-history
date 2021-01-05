@@ -12,9 +12,10 @@
         style="
           text-shadow: 0 2px 2px rgb(0 0 0 / 50%);
           font-family: 'Palanquin', sans-serif;
+          max-width: 600px;
         "
       >
-        Understand air pollution behevaior.
+        Understand air pollution around you.
       </div>
 
       <div class="mt-5 w-full">

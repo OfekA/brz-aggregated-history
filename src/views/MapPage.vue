@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 h-screen">
+  <div class="p-2 h-screen" style="max-width: 700px; margin: 0 auto">
     <Header class="mb-5" />
     <div class="timeframes">
       <label style="margin-right: 10px; font-weight: 700">Time-frame</label>
@@ -13,7 +13,7 @@
         {{ timeframe.text }}
       </vs-radio>
     </div>
-    <div class="mb-2 flex">
+    <div class="mb-3 flex">
       <label style="margin-right: 10px; font-weight: 700">Time-period</label>
       <p v-if="selectedTimeframeType !== 'yearly'">
         2020, {{ currentTimePeriod }}
@@ -42,7 +42,7 @@
         @change="onSliderDrag"
       />
     </div>
-    <div id="map" ref="map" class="map"></div>
+    <div id="map" ref="map" class="map rounded"></div>
     <div v-show="selectedTimeframeType !== 'yearly'" class="flex mt-6">
       <div class="mr-5" style="font-weight: 700">Risk Index over time</div>
       <div class="flex flex-col w-full">
@@ -78,15 +78,19 @@ import sleep from "../share/sleep.js";
 const timeframes = [
   {
     id: "yearly",
-    text: "Yearly",
+    text: "Yearly - real",
   },
   {
     id: "monthly",
-    text: "Monthly",
+    text: "Monthly - demo",
+  },
+  {
+    id: "monthly-real",
+    text: "Monthly - real",
   },
   {
     id: "weekly",
-    text: "Weekly",
+    text: "Weekly - real",
   },
 ];
 const timeframeValues = {
@@ -105,6 +109,7 @@ const timeframeValues = {
     "Nov",
     "Dec",
   ],
+  "monthly-real": ["Feb", "Mar", "Apr", "May"],
   weekly: Array.from(new Array(52).keys()).map(
     (weekNum) => `Week ${weekNum + 1}`
   ),
@@ -224,20 +229,24 @@ export default {
     },
     toggleBRZLayer(timeframeValue) {
       if (!this.mapboxmap) return;
+
       this.mapboxmap.setPaintProperty(
         `${breezometerTilesID}_${timeframeValue}`,
         "raster-opacity",
         0.9
       );
-      this.timeframeValues.forEach((timeframeValueFromList) => {
-        if (timeframeValue !== timeframeValueFromList) {
-          this.mapboxmap.setPaintProperty(
-            `${breezometerTilesID}_${timeframeValueFromList}`,
-            "raster-opacity",
-            0
-          );
-        }
-      });
+
+      setTimeout(() => {
+        this.timeframeValues.forEach((timeframeValueFromList) => {
+          if (timeframeValue !== timeframeValueFromList) {
+            this.mapboxmap.setPaintProperty(
+              `${breezometerTilesID}_${timeframeValueFromList}`,
+              "raster-opacity",
+              0
+            );
+          }
+        });
+      }, 70);
     },
     getRiskFactorRandomValues(numberOfValues) {
       var valuesArray = new Array(0);
@@ -253,6 +262,8 @@ function getTileURL(selectedTimeframeType, selectedTimeframeValue) {
     return yearlyTileURLBuilder();
   } else if (selectedTimeframeType === "monthly") {
     return monthlyTileURLBuilder(selectedTimeframeValue);
+  } else if (selectedTimeframeType === "monthly-real") {
+    return monthlyRealTileURLBuilder(selectedTimeframeValue);
   } else {
     return weeklyTileURLBuilder(selectedTimeframeValue);
   }
@@ -266,8 +277,17 @@ function monthlyTileURLBuilder(month = "Jan") {
   if (day < 10) day = `0${day}`;
   return `https://tiles.breezometer.com/v1/air-quality/breezometer-aqi/historical/hourly/{z}/{x}/{y}.png?key=${variation.breezoMeterApiKey}&breezometer_aqi_color=indiper&datetime=2020-12-${day}T11:00:00`;
 }
+function monthlyRealTileURLBuilder(month = "Jan") {
+  let monthly = `${timeframeValues["monthly-real"].indexOf(month) + 2}`;
+
+  console.log(
+    `https://storage.googleapis.com/brz-tile-server/monthly/2020/${monthly}/{z}/{x}/{y}.png`
+  );
+  return `https://storage.googleapis.com/brz-tile-server/monthly/2020/${monthly}/{z}/{x}/{y}.png`;
+}
 function weeklyTileURLBuilder(week = "Week 1") {
   let weekly = `${timeframeValues.weekly.indexOf(week) + 1}`;
+
   return `https://storage.googleapis.com/brz-tile-server/weekly/2020/${weekly}/{z}/{x}/{y}.png`;
   // return `https://tiles.breezometer.com/v1/air-quality/breezometer-aqi/historical/hourly/{z}/{x}/{y}.png?key=${variation.breezoMeterApiKey}&breezometer_aqi_color=indiper&datetime=2020-12-${day}T19:00:00`;
 }
@@ -297,7 +317,7 @@ function addBRZLayer({ mapboxmap, tilesUrl, layerID }) {
   });
 }
 function addPopUpToMap(mapboxmap, clickPointLon, clickPointLat, html) {
-  var randRiskIndex = parseInt(Math.random() * 100, 10);
+  var randRiskIndex = clamp(parseInt(Math.random() * 100, 10), 55, 90);
   var riskIndexColor =
     randRiskIndex <= 20
       ? "#6314A1"
@@ -333,4 +353,4 @@ function addPopUpToMap(mapboxmap, clickPointLon, clickPointLat, html) {
 .mapboxgl-ctrl-attrib {
   display: none;
 }
-</style>
+</style>52weekly + 1${weekly}/{z}/{
