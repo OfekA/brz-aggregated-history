@@ -10,7 +10,7 @@
       <div
         class="text-5xl md:text-6xl font-medium text-white tracking-tight leading-tight mb-5"
         style="
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+          text-shadow: 0 2px 2px rgb(0 0 0 / 50%);
           font-family: 'Palanquin', sans-serif;
         "
       >

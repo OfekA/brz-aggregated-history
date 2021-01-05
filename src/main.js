@@ -8,6 +8,7 @@ import SearchPage from "./views/SearchPage.vue";
 import MapPage from "./views/MapPage.vue";
 
 import "vuesax/dist/vuesax.css"; //Vuesax styles
+import Trend from "vuetrend";
 
 Vue.config.productionTip = false;
 
@@ -16,6 +17,7 @@ Vue.use(Vuesax, {
 });
 
 Vue.use(VueRouter);
+Vue.use(Trend);
 
 const routes = [
   { path: "/", component: IndexPage },

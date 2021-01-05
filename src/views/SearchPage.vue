@@ -43,7 +43,12 @@
         </div>
 
         <div class="timeframe-select flex mt-10 gap-4" v-if="chosenCity">
-          <router-link to="/map/yearly">
+          <router-link
+            :to="{
+              path: '/map/yearly',
+              query: { lat: chosenCity.latitude, lon: chosenCity.longitude },
+            }"
+          >
             <div
               class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
             >
@@ -56,8 +61,12 @@
               </h3>
             </div>
           </router-link>
-
-          <router-link to="/map/monthly">
+          <router-link
+            :to="{
+              path: '/map/monthly',
+              query: { lat: chosenCity.latitude, lon: chosenCity.longitude },
+            }"
+          >
             <div
               class="card shadow p-4 md:p-6 rounded-lg cursor-pointer hover:shadow-lg transition-all"
             >
